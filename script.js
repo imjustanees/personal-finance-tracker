@@ -3,7 +3,7 @@ const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
 const typeInput = document.getElementById("type");
 const transactionList = document.getElementById("transaction-list");
-
+const transactionCount = document.getElementById("transaction-count");
 const balanceDisplay = document.getElementById("balance");
 const incomeDisplay = document.getElementById("income");
 const expensesDisplay = document.getElementById("expenses");
@@ -21,6 +21,11 @@ function formatMoney(pence) {
 
 function renderTransactions() {
   transactionList.replaceChildren();
+
+  const count = transactions.length;
+  transactionCount.textContent =
+    `${count} transaction${count === 1 ? "" : "s"}`;
+    
   if (transactions.length === 0) {
     const emptyMessage = document.createElement("li");
     emptyMessage.textContent = "No transactions yet.";
@@ -32,7 +37,7 @@ function renderTransactions() {
   transactions.forEach(function (transaction, index) {
     const item = document.createElement("li");
     item.classList.add(transaction.type);
-    
+
     const sign = transaction.type === "income" ? "+" : "-";
 
     item.textContent =
