@@ -7,7 +7,7 @@ const transactionCount = document.getElementById("transaction-count");
 const balanceDisplay = document.getElementById("balance");
 const incomeDisplay = document.getElementById("income");
 const expensesDisplay = document.getElementById("expenses");
-
+const transactionFilter = document.getElementById("transaction-filter");
 const transactions = JSON.parse(
   localStorage.getItem("finance-transactions") || "[]"
 );
@@ -22,13 +22,23 @@ function formatMoney(pence) {
 function renderTransactions() {
   transactionList.replaceChildren();
 
-  const count = transactions.length;
+  const selectedType = transactionFilter.value;
+
+  const matchingTransactions = transactions.filter(function (transaction) {
+    return selectedType === "all" || transaction.type === selectedType;
+  });
+
+  const count = matchingTransactions.length;
   transactionCount.textContent =
     `${count} transaction${count === 1 ? "" : "s"}`;
-    
-  if (transactions.length === 0) {
+
+  if (count === 0) {
     const emptyMessage = document.createElement("li");
-    emptyMessage.textContent = "No transactions yet.";
+
+    emptyMessage.textContent = transactions.length === 0
+      ? "No transactions yet."
+      : "No transactions match this filter.";
+
     transactionList.appendChild(emptyMessage);
   }
   let income = 0;
@@ -37,6 +47,11 @@ function renderTransactions() {
   transactions.forEach(function (transaction, index) {
     const item = document.createElement("li");
     item.classList.add(transaction.type);
+    const selectedType = transactionFilter.value;
+
+    if (selectedType !== "all" && transaction.type !== selectedType) {
+    item.style.display = "none";
+    }
 
     const sign = transaction.type === "income" ? "+" : "-";
 
@@ -98,3 +113,7 @@ form.addEventListener("submit", function (event) {
   descriptionInput.focus();
 });
 renderTransactions();
+
+transactionFilter.addEventListener("change", function () {
+  renderTransactions();
+});
