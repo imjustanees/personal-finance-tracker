@@ -21,12 +21,18 @@ function formatMoney(pence) {
 
 function renderTransactions() {
   transactionList.replaceChildren();
-
+  if (transactions.length === 0) {
+    const emptyMessage = document.createElement("li");
+    emptyMessage.textContent = "No transactions yet.";
+    transactionList.appendChild(emptyMessage);
+  }
   let income = 0;
   let expenses = 0;
 
   transactions.forEach(function (transaction, index) {
     const item = document.createElement("li");
+    item.classList.add(transaction.type);
+    
     const sign = transaction.type === "income" ? "+" : "-";
 
     item.textContent =

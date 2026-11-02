@@ -139,3 +139,11 @@ form button {
     font-size: 26px;
   }
 }
+
+#transaction-list li.income {
+  color: #15803d;
+}
+
+#transaction-list li.expense {
+  color: #b91c1c;
+}
