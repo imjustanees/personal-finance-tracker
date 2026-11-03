@@ -1,3 +1,4 @@
+const exportCsvButton = document.getElementById("export-csv");
 const form = document.getElementById("transaction-form");
 const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
@@ -141,4 +142,58 @@ monthFilter.addEventListener("change", function () {
 clearMonthFilter.addEventListener("click", function () {
   monthFilter.value = "";
   renderTransactions();
+});
+function escapeCsv(value) {
+  let text = String(value);
+
+  // Keep spreadsheet apps from treating text as a formula.
+  if (/^\s*[=+\-@]/.test(text)) {
+    text = "'" + text;
+  }
+
+  return '"' + text.replace(/"/g, '""') + '"';
+}
+
+exportCsvButton.addEventListener("click", function () {
+  if (transactions.length === 0) {
+    alert("Add a transaction before exporting.");
+    return;
+  }
+
+  const rows = [
+    ["Date", "Description", "Type", "Amount (GBP)"]
+  ];
+
+  transactions.forEach(function (transaction) {
+    rows.push([
+      transaction.date || "",
+      transaction.description,
+      transaction.type,
+      (transaction.amount / 100).toFixed(2)
+    ]);
+  });
+
+  const csv = rows
+    .map(function (row) {
+      return row.map(escapeCsv).join(",");
+    })
+    .join("\r\n");
+
+  const file = new Blob(["\uFEFF", csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "finance-transactions.csv";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(function () {
+    URL.revokeObjectURL(url);
+  }, 1000);
 });
