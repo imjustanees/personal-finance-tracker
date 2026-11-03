@@ -13,6 +13,10 @@ A responsive web app for tracking income, expenses, and your balance.
 - Delete transactions and update totals.
 - Keep transactions after refreshing using localStorage.
 - Responsive layout for desktop and mobile screens.
+- Filter transactions by All, Income, or Expenses.
+- Show the number of transactions matching the selected  filter.
+- Display a helpful message when the list or filter is empty.
+- Colour income entries green and expenses red.
 
 ## Built with
 
@@ -45,5 +49,5 @@ clearing browser data.
 ## Future improvements
 
 - Transaction dates and categories.
-- Filter transactions by type or month.
+- Add transaction dates and filter by month.
 - Export transactions as CSV.
