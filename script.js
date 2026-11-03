@@ -9,6 +9,8 @@ const balanceDisplay = document.getElementById("balance");
 const incomeDisplay = document.getElementById("income");
 const expensesDisplay = document.getElementById("expenses");
 const transactionFilter = document.getElementById("transaction-filter");
+const monthFilter = document.getElementById("month-filter");
+const clearMonthFilter = document.getElementById("clear-month-filter");
 const transactions = JSON.parse(
   localStorage.getItem("finance-transactions") || "[]"
 );
@@ -24,10 +26,20 @@ function renderTransactions() {
   transactionList.replaceChildren();
 
   const selectedType = transactionFilter.value;
+const selectedMonth = monthFilter.value;
 
-  const matchingTransactions = transactions.filter(function (transaction) {
-    return selectedType === "all" || transaction.type === selectedType;
-  });
+function matchesFilters(transaction) {
+  const matchesType =
+    selectedType === "all" || transaction.type === selectedType;
+
+  const matchesMonth =
+    selectedMonth === "" ||
+    (transaction.date || "").startsWith(selectedMonth);
+
+  return matchesType && matchesMonth;
+}
+
+const matchingTransactions = transactions.filter(matchesFilters);
 
   const count = matchingTransactions.length;
   transactionCount.textContent =
@@ -48,10 +60,8 @@ function renderTransactions() {
   transactions.forEach(function (transaction, index) {
     const item = document.createElement("li");
     item.classList.add(transaction.type);
-    const selectedType = transactionFilter.value;
-
-    if (selectedType !== "all" && transaction.type !== selectedType) {
-    item.style.display = "none";
+    if (!matchesFilters(transaction)) {
+      item.style.display = "none";
     }
 
     const sign = transaction.type === "income" ? "+" : "-";
@@ -122,5 +132,13 @@ form.addEventListener("submit", function (event) {
 renderTransactions();
 
 transactionFilter.addEventListener("change", function () {
+  renderTransactions();
+});
+monthFilter.addEventListener("change", function () {
+  renderTransactions();
+});
+
+clearMonthFilter.addEventListener("click", function () {
+  monthFilter.value = "";
   renderTransactions();
 });
