@@ -21,6 +21,8 @@ A responsive web app for tracking income, expenses, and your balance.
 - Combine transaction type and month filters.
 - Clear the month filter with a Show all months button.
 - Keep overall financial totals visible while filtering.
+- Export transactions as CSV.
+
 ## Built with
 
 - HTML
@@ -52,4 +54,3 @@ clearing browser data.
 ## Future improvements
 
 - Transaction dates and categories.
-- Export transactions as CSV.
