@@ -2,6 +2,7 @@ const form = document.getElementById("transaction-form");
 const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
 const typeInput = document.getElementById("type");
+const dateInput = document.getElementById("date");
 const transactionList = document.getElementById("transaction-list");
 const transactionCount = document.getElementById("transaction-count");
 const balanceDisplay = document.getElementById("balance");
@@ -55,8 +56,13 @@ function renderTransactions() {
 
     const sign = transaction.type === "income" ? "+" : "-";
 
+    const dateLabel = transaction.date
+  ? transaction.date.split("-").reverse().join("/")
+  : "No date";
+
     item.textContent =
-      `${transaction.description}: ${sign}${formatMoney(transaction.amount)}`;
+      `${dateLabel} — ${transaction.description}: ${sign}${formatMoney(transaction.amount)}`;
+    
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.type = "button";
@@ -98,10 +104,11 @@ form.addEventListener("submit", function (event) {
   }
 
   transactions.push({
-    description: description,
-    amount: amount,
-    type: typeInput.value
-  });
+  description: description,
+  amount: amount,
+  type: typeInput.value,
+  date: dateInput.value
+});
 
     localStorage.setItem(
     "finance-transactions",
