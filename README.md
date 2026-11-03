@@ -17,7 +17,10 @@ A responsive web app for tracking income, expenses, and your balance.
 - Show the number of transactions matching the selected  filter.
 - Display a helpful message when the list or filter is empty.
 - Colour income entries green and expenses red.
-
+- Save and display transaction dates.
+- Combine transaction type and month filters.
+- Clear the month filter with a Show all months button.
+- Keep overall financial totals visible while filtering.
 ## Built with
 
 - HTML
@@ -49,5 +52,4 @@ clearing browser data.
 ## Future improvements
 
 - Transaction dates and categories.
-- Add transaction dates and filter by month.
 - Export transactions as CSV.
