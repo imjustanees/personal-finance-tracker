@@ -6,6 +6,9 @@ A responsive web app for tracking income, expenses, and your balance.
 
 [Try the Personal Finance Tracker](https://imjustanees.github.io/personal-finance-tracker/)
 
+## Screenshot
+
+![Finance tracker showing the financial summary and transactions](images/finance-tracker.png)
 
 ## Features
 
