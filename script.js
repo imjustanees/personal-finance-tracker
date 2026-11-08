@@ -16,6 +16,13 @@ const transactions = JSON.parse(
   localStorage.getItem("finance-transactions") || "[]"
 );
 
+function saveTransactions() {
+  localStorage.setItem(
+    "finance-transactions",
+    JSON.stringify(transactions)
+  );
+}
+
 function formatMoney(pence) {
   return (pence / 100).toLocaleString("en-GB", {
     style: "currency",
@@ -27,20 +34,20 @@ function renderTransactions() {
   transactionList.replaceChildren();
 
   const selectedType = transactionFilter.value;
-const selectedMonth = monthFilter.value;
+  const selectedMonth = monthFilter.value;
 
-function matchesFilters(transaction) {
-  const matchesType =
-    selectedType === "all" || transaction.type === selectedType;
+  function matchesFilters(transaction) {
+    const matchesType =
+      selectedType === "all" || transaction.type === selectedType;
 
-  const matchesMonth =
-    selectedMonth === "" ||
-    (transaction.date || "").startsWith(selectedMonth);
+    const matchesMonth =
+      selectedMonth === "" ||
+      (transaction.date || "").startsWith(selectedMonth);
 
-  return matchesType && matchesMonth;
-}
+    return matchesType && matchesMonth;
+  }
 
-const matchingTransactions = transactions.filter(matchesFilters);
+  const matchingTransactions = transactions.filter(matchesFilters);
 
   const count = matchingTransactions.length;
   transactionCount.textContent =
@@ -68,24 +75,19 @@ const matchingTransactions = transactions.filter(matchesFilters);
     const sign = transaction.type === "income" ? "+" : "-";
 
     const dateLabel = transaction.date
-  ? transaction.date.split("-").reverse().join("/")
-  : "No date";
+      ? transaction.date.split("-").reverse().join("/")
+      : "No date";
 
     item.textContent =
       `${dateLabel} — ${transaction.description}: ${sign}${formatMoney(transaction.amount)}`;
-    
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.type = "button";
 
     deleteButton.addEventListener("click", function () {
       transactions.splice(index, 1);
-
-      localStorage.setItem(
-        "finance-transactions",
-        JSON.stringify(transactions)
-      );
-
+      saveTransactions();
       renderTransactions();
     });
 
@@ -103,7 +105,7 @@ const matchingTransactions = transactions.filter(matchesFilters);
   expensesDisplay.textContent = formatMoney(expenses);
   balanceDisplay.textContent = formatMoney(income - expenses);
   balanceDisplay.style.color =
-  income - expenses < 0 ? "#b91c1c" : "#172033";
+    income - expenses < 0 ? "#b91c1c" : "#172033";
 }
 
 form.addEventListener("submit", function (event) {
@@ -117,19 +119,15 @@ form.addEventListener("submit", function (event) {
   }
 
   transactions.push({
-  description: description,
-  amount: amount,
-  type: typeInput.value,
-  date: dateInput.value
-});
-
-    localStorage.setItem(
-    "finance-transactions",
-    JSON.stringify(transactions)
-  );
-
+    description: description,
+    amount: amount,
+    type: typeInput.value,
+    date: dateInput.value
+  });
+  saveTransactions();
   renderTransactions();
   form.reset();
+
   descriptionInput.focus();
 });
 renderTransactions();
