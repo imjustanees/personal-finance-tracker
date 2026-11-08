@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,80 +8,69 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <main>
     <h1>Personal Finance Tracker</h1>
     <p>Track your income, expenses, and balance.</p>
     <section aria-label="Financial summary">
-  <div>
-    <h2>Balance</h2>
-    <p id="balance">£0.00</p>
-  </div>
+      <div>
+        <h2>Balance</h2>
+        <p id="balance">£0.00</p>
+      </div>
 
-  <div>
-    <h2>Income</h2>
-    <p id="income">£0.00</p>
-  </div>
+      <div>
+        <h2>Income</h2>
+        <p id="income">£0.00</p>
+      </div>
 
-  <div>
-    <h2>Expenses</h2>
-    <p id="expenses">£0.00</p>
-  </div>
-</section>
-<section>
-  <h2>Add a transaction</h2>
+      <div>
+        <h2>Expenses</h2>
+        <p id="expenses">£0.00</p>
+      </div>
+    </section>
+    <section>
+      <h2>Add a transaction</h2>
 
-  <form id="transaction-form">
-    <label for="description">Description</label>
-    <input
-      id="description"
-      type="text"
-      placeholder="e.g. Salary or groceries"
-      maxlength="100"
-      required
-    >
+      <form id="transaction-form">
+        <label for="description">Description</label>
+        <input id="description" type="text" placeholder="e.g. Salary or groceries" maxlength="100" required>
 
-    <label for="amount">Amount (£)</label>
-    <input
-      id="amount"
-      type="number"
-      placeholder="e.g. 25.50"
-      min="0.01"
-      step="0.01"
-      required
-    >
-    <label for="date">Date</label>
-    <input id="date" type="date" required>
-    <label for="type">Type</label>
-    <select id="type">
-      <option value="expense">Expense</option>
-      <option value="income">Income</option>
-    </select>
+        <label for="amount">Amount (£)</label>
+        <input id="amount" type="number" placeholder="e.g. 25.50" min="0.01" step="0.01" required>
+        <label for="date">Date</label>
+        <input id="date" type="date" required>
+        <label for="type">Type</label>
+        <select id="type">
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
 
-    <button type="submit">Add transaction</button>
-  </form>
-</section>
+        <button type="submit">Add transaction</button>
+      </form>
+    </section>
 
-<section>
-  <h2>Transactions</h2>
-  <p id="transaction-count">0 transactions</p>
-  <label for="transaction-filter">Show transactions</label>
-<select id="transaction-filter">
-  <option value="all">All</option>
-  <option value="income">Income</option>
-  <option value="expense">Expenses</option>
-</select>
-<label for="month-filter">Filter by month</label>
-<input id="month-filter" type="month">
+    <section>
+      <h2>Transactions</h2>
+      <p id="transaction-count">0 transactions</p>
+      <label for="transaction-filter">Show transactions</label>
+      <select id="transaction-filter">
+        <option value="all">All</option>
+        <option value="income">Income</option>
+        <option value="expense">Expenses</option>
+      </select>
+      <label for="month-filter">Filter by month</label>
+      <input id="month-filter" type="month">
 
-<button id="clear-month-filter" type="button">
-  Show all months
-</button>
-<button id="export-csv" type="button">
-  Export all transactions as CSV
-</button>
-  <ul id="transaction-list"></ul>
-</section>
+      <button id="clear-month-filter" type="button">
+        Show all months
+      </button>
+      <button id="export-csv" type="button">
+        Export all transactions as CSV
+      </button>
+      <ul id="transaction-list"></ul>
+    </section>
   </main>
 </body>
+
 </html>
