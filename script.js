@@ -104,9 +104,10 @@ function renderTransactions() {
 
   incomeDisplay.textContent = formatMoney(income);
   expensesDisplay.textContent = formatMoney(expenses);
-  balanceDisplay.textContent = formatMoney(income - expenses);
-  balanceDisplay.style.color =
-    income - expenses < 0 ? "#b91c1c" : "#172033";
+  const balance = income - expenses;
+
+  balanceDisplay.textContent = formatMoney(balance);
+  balanceDisplay.style.color = balance < 0 ? "#b91c1c" : "#172033";
 }
 
 form.addEventListener("submit", function (event) {
@@ -133,12 +134,8 @@ form.addEventListener("submit", function (event) {
 });
 renderTransactions();
 
-transactionFilter.addEventListener("change", function () {
-  renderTransactions();
-});
-monthFilter.addEventListener("change", function () {
-  renderTransactions();
-});
+transactionFilter.addEventListener("change", renderTransactions);
+monthFilter.addEventListener("change", renderTransactions);
 
 clearMonthFilter.addEventListener("click", function () {
   monthFilter.value = "";
