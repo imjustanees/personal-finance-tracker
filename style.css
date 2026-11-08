@@ -50,11 +50,13 @@ section[aria-label="Financial summary"] p {
   overflow-wrap: anywhere;
 }
 
-#income {
+#income,
+#transaction-list li.income {
   color: #15803d;
 }
 
-#expenses {
+#expenses,
+#transaction-list li.expense {
   color: #b91c1c;
 }
 
@@ -138,12 +140,4 @@ form button {
   h1 {
     font-size: 26px;
   }
-}
-
-#transaction-list li.income {
-  color: #15803d;
-}
-
-#transaction-list li.expense {
-  color: #b91c1c;
 }
