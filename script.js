@@ -66,11 +66,17 @@ function renderTransactions() {
   let expenses = 0;
 
   transactions.forEach(function (transaction, index) {
+    if (transaction.type === "income") {
+      income += transaction.amount;
+    } else {
+      expenses += transaction.amount;
+    }
+
+    if (!matchesFilters(transaction)) {
+      return;
+    }
     const item = document.createElement("li");
     item.classList.add(transaction.type);
-    if (!matchesFilters(transaction)) {
-      item.style.display = "none";
-    }
 
     const sign = transaction.type === "income" ? "+" : "-";
 
@@ -94,11 +100,6 @@ function renderTransactions() {
     item.append(" ", deleteButton);
     transactionList.appendChild(item);
 
-    if (transaction.type === "income") {
-      income += transaction.amount;
-    } else {
-      expenses += transaction.amount;
-    }
   });
 
   incomeDisplay.textContent = formatMoney(income);
